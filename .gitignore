@@ -71,3 +71,8 @@ $RECYCLE.BIN/
 .backup-before-portfolio/
 .local-backups/
 portfolio-template/
+
+# Unpublished products (keep local APKs out of the Pages deployment)
+/downloads/Achuppori.apk
+/downloads/VulnSpace-v1.0.apk
+/downloads/WayPoint-debug.apk

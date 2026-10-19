@@ -1,38 +1,62 @@
-# HMG project portfolio
+﻿# WayPoint launch website
 
-HTML, CSS and JavaScript only. Open index.html to preview; no build required.
+The homepage presents WayPoint. Other project records are retained in page/projects.js with published: false, so they do not appear in listings or render at their old detail URLs. Their APKs are excluded from the current Git tree; local copies remain available. Previously committed copies may still be accessible through Git history.
 
-## Content and APK updates
-Edit page/projects.js manually. It contains profile text, project details, repository links, launch website links, and APK paths. Keep project IDs stable because URLs and browser click counts use them.
+## GitHub Pages
 
-Copy replacement APKs into downloads/, then update the project's apk, version, size and buildNote fields. Prefer a new filename per version to avoid stale browser caches. All paths are relative, so the site supports GitHub Pages repository subpaths.
+Repository: Shadow-Protectors/Shadow-Protectors.github.io
 
-Included files:
-- WayPoint: downloads/WayPoint-1.1.0-debug.apk (rebuilt debug preview with updated branding).
-- VulnSpace: downloads/VulnSpace-v1.0.apk.
-- Achuppori: downloads/Achuppori.apk (copied from D:/Autonomous-Printer/downloads/autonomous-printer.apk).
+In repository Settings > Pages > Build and deployment:
+- Source: Deploy from a branch
+- Branch: main
+- Folder: /(root)
+- Save and check the Pages deployment in Actions.
 
-Achuppori links to https://achuppori.vercel.app/ as its separate launch website. No admin page or credentials are included.
+Expected address: https://shadow-protectors.github.io/
+
+This site is plain HTML, CSS and JavaScript. No build command, environment variables, database or API token is required. Keep .nojekyll in the root. Enable Enforce HTTPS when available.
+
+## APK distribution with GitHub Releases
+
+Use the application repository Shadow-Protectors/WayPoint for releases. The website repository only hosts the website.
+
+1. Prepare and test an owner-signed release APK. Keep the signing key private and use the same key for future app updates. The current local download is a debug preview; the generated release APK is unsigned.
+2. In WayPoint > Releases > Draft a new release, create a version tag matching the app, for example v1.1.0 if that version has not already been released.
+3. Target the tested commit, add a title and release notes, and attach the signed APK as WayPoint.apk. Include a SHA-256 checksum if desired.
+4. For testing, use a pre-release and label the website accordingly. Publish as a stable release only when ready.
+5. In page/projects.js, set WayPoint's release.tag to the published tag and release.asset to the exact uploaded filename. repository is already Shadow-Protectors/WayPoint.
+6. Update version, size, buildNote and the final-release FAQ to match the actual artifact. Update the index.html noscript fallback download URL and status too.
+7. Commit/push the website changes and verify the download on the live site.
+
+Example release configuration (only after the matching asset exists):
+
+    "release": {
+      "repository": "Shadow-Protectors/WayPoint",
+      "tag": "v1.1.0",
+      "asset": "WayPoint.apk"
+    }
+
+Leave tag empty while using the local debug preview. The website then hides the release counter and keeps the existing local download link.
 
 ## Download counts
-The visible counts measure download-link clicks in the current browser using localStorage. They are not completed downloads, unique users, or shared totals. Clearing browser data resets them; different devices have separate counts. A static GitHub Pages website cannot maintain a shared mutable counter without an external API/service. Downloads work even if storage is blocked.
 
-## GitHub Pages hosting plan
-1. Create a public repository under Shadow-Protectors, for example product-launch. For an organization homepage instead, use shadow-protectors.github.io (only if that repository is not already used).
-2. Publish index.html, about.html, project.html, .nojekyll, page/, assets/, and downloads/ to the main branch. Include .gitignore. Do not include local backup folders. Use GitHub Desktop or Git; browser uploads have a smaller per-file limit.
-3. In repository Settings > Pages, choose Deploy from a branch, main, /(root), then Save.
-4. Wait for the Pages deployment to finish. A product-launch repository will use https://shadow-protectors.github.io/product-launch/. An organization homepage uses https://shadow-protectors.github.io/.
-5. Verify all three cards, APK downloads, About links and the printer launch link on the published site.
-6. For updates, edit page/projects.js and replace/add APKs locally, review the changed files, then commit and push them. Pages republishes the branch. Nothing has been committed, pushed or deployed by this task.
+GitHub automatically tracks download_count for each uploaded release asset. No counting service or GitHub configuration switch is needed. The site reads the exact release/tag asset using GitHub's public REST API, and displays “APK downloads · this version”.
 
-GitHub blocks Git files over 100 MiB. Published Pages sites are limited to 1 GB and have a soft bandwidth limit of 100 GB/month. These APKs currently total about 52 MiB. Frequent APK replacements grow repository history; use Releases or external storage later if distribution outgrows Pages. Git LFS is not a direct-download solution for Pages.
+- Counts are shared across visitors, not stored as click totals on each device.
+- They are asset downloads, not unique people, installations or active users.
+- Counts are cached in the browser session for five minutes.
+- If GitHub is unavailable, rate-limited, or the asset does not exist, the count says unavailable; the download link remains usable.
+- Public unauthenticated GitHub API requests are limited to 60 per hour per originating IP. No token belongs in frontend JavaScript. At larger traffic volumes, generate a cached count JSON using a scheduled backend/Actions job.
+- A new release has its own asset counter. An all-version total would need to sum matching APK assets across every release, with pagination. Do not include ZIP/source assets, checksums, or duplicate APK variants.
+- Retain historical release assets to retain their historical counts. Do not delete/re-upload an asset merely to update its binary; publish a new version instead.
+- APKs served from this site's downloads folder are not included in GitHub Release counts.
 
-Official references:
-- https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site
-- https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
-- https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+## Launch checks still required
 
-Project descriptions: https://github.com/Shadow-Protectors/WayPoint and https://github.com/Shadow-Protectors/VulnSpace. Printer content was retained from the original local website.
+Real-device testing, production signing, current app screenshots, published privacy/terms/license notices, and confirmation of a support contact remain outstanding. No production release or Pages setting was changed by this website code update.
 
-## WayPoint branding update
-The supplied logo is in assets/waypoint/logo.png and appears on the project card, detail page and favicon. The project page includes version 1.1.0, offline and permission FAQs, and GitHub bug/feature links. The download remains a debug preview; replace it with an owner-signed production build before launch. See D:/WayPoint/LAUNCH_CHECKLIST.md for outstanding release work.
+References:
+- https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+- https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
+- https://docs.github.com/en/rest/releases/releases
+- https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api

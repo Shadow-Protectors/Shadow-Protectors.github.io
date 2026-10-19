@@ -916,3 +916,8 @@ body {
 .support-links { display: flex; flex-wrap: wrap; gap: var(--space-brand); margin-top: var(--space-brand); }
 .support-links a { color: var(--ink-black); text-underline-offset: 4px; }
 .support-links a:hover { text-decoration-thickness: 2px; }
+
+/* Keep the async counter from shifting the download section. */
+.project-detail .download-count { min-height: 1.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 600px) { .masthead { flex-wrap: wrap; gap: 16px; } }

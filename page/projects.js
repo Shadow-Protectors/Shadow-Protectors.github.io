@@ -1,4 +1,4 @@
-// Portfolio content. Edit this object manually.
+// Portfolio content. Only published projects are shown.
 window.portfolio = {
   "organizationUrl": "https://github.com/Shadow-Protectors",
   "bio": "",
@@ -34,7 +34,7 @@ window.portfolio = {
           "text": "Voice reminders in English, Tamil, and Hindi, with English fallback."
         }
       ],
-      "buildNote": "Preview ? Debug build",
+      "buildNote": "Debug preview",
       "logo": "assets/waypoint/logo.png",
       "faq": [
         {
@@ -75,7 +75,13 @@ window.portfolio = {
           "label": "Shadow-Protectors",
           "url": "https://github.com/Shadow-Protectors"
         }
-      ]
+      ],
+      "published": true,
+      "release": {
+        "repository": "Shadow-Protectors/WayPoint",
+        "tag": "",
+        "asset": "WayPoint.apk"
+      }
     },
     {
       "id": "vulnspace",
@@ -108,7 +114,8 @@ window.portfolio = {
           "text": "Receive community notifications."
         }
       ],
-      "size": "23.6 MB"
+      "size": "23.6 MB",
+      "published": false
     },
     {
       "id": "achuppori",
@@ -141,7 +148,8 @@ window.portfolio = {
           "text": "Enter your code at the station to release your prints."
         }
       ],
-      "size": "20.1 MB"
+      "size": "20.1 MB",
+      "published": false
     }
   ],
   "githubUrl": "https://github.com/HariMuthuGanesh",
