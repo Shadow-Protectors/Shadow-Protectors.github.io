@@ -1,62 +1,38 @@
-﻿# WayPoint launch website
+﻿# Shared app launch website
 
-The homepage presents WayPoint. Other project records are retained in page/projects.js with published: false, so they do not appear in listings or render at their old detail URLs. Their APKs are excluded from the current Git tree; local copies remain available. Previously committed copies may still be accessible through Git history.
+Public website, releases and issue tracker: Shadow-Protectors/Shadow-Protectors.github.io.
+App source repositories may remain private.
 
-## GitHub Pages
+## Current WayPoint preview
 
-Repository: Shadow-Protectors/Shadow-Protectors.github.io
+- Tag: waypoint-v1.1.0-preview.1
+- Asset: WayPoint-v1.1.0-debug.apk
+- App version: 1.1.0 (build 2); debug preview, not a signed production release.
+- Both the homepage and project page link directly to this public release asset.
+- The no-JavaScript homepage link uses the same asset.
 
-In repository Settings > Pages > Build and deployment:
-- Source: Deploy from a branch
-- Branch: main
-- Folder: /(root)
-- Save and check the Pages deployment in Actions.
+## Mapping and future apps
 
-Expected address: https://shadow-protectors.github.io/
+Edit page/projects.js. Each project has a stable id, a published flag and its own release object with repository, tag and exact asset filename. Prefix shared release tags with the app name. Never use the repository-wide latest release for individual apps.
 
-This site is plain HTML, CSS and JavaScript. No build command, environment variables, database or API token is required. Keep .nojekyll in the root. Enable Enforce HTTPS when available.
+Only published projects render. The homepage currently presents WayPoint directly; restore a collection/navigation when introducing another published app. Private source repository links must not be used as public support links.
 
-## APK distribution with GitHub Releases
+For each update: publish the new asset, update the project's release mapping, apk fallback URL, version, size and build note. Update the index.html no-JavaScript fallback if the featured app changes. Then commit and push.
 
-Use the application repository Shadow-Protectors/WayPoint for releases. The website repository only hosts the website.
+## Issue forms
 
-1. Prepare and test an owner-signed release APK. Keep the signing key private and use the same key for future app updates. The current local download is a debug preview; the generated release APK is unsigned.
-2. In WayPoint > Releases > Draft a new release, create a version tag matching the app, for example v1.1.0 if that version has not already been released.
-3. Target the tested commit, add a title and release notes, and attach the signed APK as WayPoint.apk. Include a SHA-256 checksum if desired.
-4. For testing, use a pre-release and label the website accordingly. Publish as a stable release only when ready.
-5. In page/projects.js, set WayPoint's release.tag to the published tag and release.asset to the exact uploaded filename. repository is already Shadow-Protectors/WayPoint.
-6. Update version, size, buildNote and the final-release FAQ to match the actual artifact. Update the index.html noscript fallback download URL and status too.
-7. Commit/push the website changes and verify the download on the live site.
+.github/ISSUE_TEMPLATE/waypoint-bug.yml and waypoint-feature.yml apply app:waypoint plus bug or enhancement. These labels must already exist in GitHub. For a new app, add its label and separate forms, then point its supportLinks to those template filenames. Blank issues remain available for general website feedback.
 
-Example release configuration (only after the matching asset exists):
+## Counts
 
-    "release": {
-      "repository": "Shadow-Protectors/WayPoint",
-      "tag": "v1.1.0",
-      "asset": "WayPoint.apk"
-    }
+The website reads download_count for the exact release asset from GitHub's public REST API. It caches counts in sessionStorage for five minutes. Counts represent downloads of this version, not unique users or installations. API failures display an unavailable message without disabling downloads. No API token is stored in the website.
 
-Leave tag empty while using the local debug preview. The website then hides the release counter and keeps the existing local download link.
+Old files served from downloads/ do not contribute to release counts. The former WayPoint APK remains locally but is excluded from new commits. Historical Git copies are not removed.
 
-## Download counts
+## Hosting
 
-GitHub automatically tracks download_count for each uploaded release asset. No counting service or GitHub configuration switch is needed. The site reads the exact release/tag asset using GitHub's public REST API, and displays “APK downloads · this version”.
+Settings > Pages > Deploy from a branch > main > /(root). Keep .nojekyll. Site: https://shadow-protectors.github.io/.
 
-- Counts are shared across visitors, not stored as click totals on each device.
-- They are asset downloads, not unique people, installations or active users.
-- Counts are cached in the browser session for five minutes.
-- If GitHub is unavailable, rate-limited, or the asset does not exist, the count says unavailable; the download link remains usable.
-- Public unauthenticated GitHub API requests are limited to 60 per hour per originating IP. No token belongs in frontend JavaScript. At larger traffic volumes, generate a cached count JSON using a scheduled backend/Actions job.
-- A new release has its own asset counter. An all-version total would need to sum matching APK assets across every release, with pagination. Do not include ZIP/source assets, checksums, or duplicate APK variants.
-- Retain historical release assets to retain their historical counts. Do not delete/re-upload an asset merely to update its binary; publish a new version instead.
-- APKs served from this site's downloads folder are not included in GitHub Release counts.
+## Release readiness
 
-## Launch checks still required
-
-Real-device testing, production signing, current app screenshots, published privacy/terms/license notices, and confirmation of a support contact remain outstanding. No production release or Pages setting was changed by this website code update.
-
-References:
-- https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-- https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
-- https://docs.github.com/en/rest/releases/releases
-- https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api
+Production signing, real-device testing, current screenshots and published legal/support information remain release tasks. The current download is explicitly a debug preview.

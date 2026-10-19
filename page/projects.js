@@ -14,8 +14,8 @@ window.portfolio = {
       "android": "7.0+",
       "version": "1.1.0",
       "size": "8.6 MB",
-      "apk": "downloads/WayPoint-1.1.0-debug.apk",
-      "repository": "https://github.com/Shadow-Protectors/WayPoint",
+      "apk": "https://github.com/Shadow-Protectors/Shadow-Protectors.github.io/releases/download/waypoint-v1.1.0-preview.1/WayPoint-v1.1.0-debug.apk",
+      "repository": "https://github.com/Shadow-Protectors/Shadow-Protectors.github.io/releases/tag/waypoint-v1.1.0-preview.1",
       "features": [
         {
           "title": "Choose a destination",
@@ -34,7 +34,7 @@ window.portfolio = {
           "text": "Voice reminders in English, Tamil, and Hindi, with English fallback."
         }
       ],
-      "buildNote": "Debug preview",
+      "buildNote": "Preview 1 - Debug build",
       "logo": "assets/waypoint/logo.png",
       "faq": [
         {
@@ -65,11 +65,11 @@ window.portfolio = {
       "supportLinks": [
         {
           "label": "Report a bug",
-          "url": "https://github.com/Shadow-Protectors/WayPoint/issues/new?labels=bug"
+          "url": "https://github.com/Shadow-Protectors/Shadow-Protectors.github.io/issues/new?template=waypoint-bug.yml"
         },
         {
           "label": "Request a feature",
-          "url": "https://github.com/Shadow-Protectors/WayPoint/issues/new?labels=enhancement"
+          "url": "https://github.com/Shadow-Protectors/Shadow-Protectors.github.io/issues/new?template=waypoint-feature.yml"
         },
         {
           "label": "Shadow-Protectors",
@@ -78,9 +78,9 @@ window.portfolio = {
       ],
       "published": true,
       "release": {
-        "repository": "Shadow-Protectors/WayPoint",
-        "tag": "",
-        "asset": "WayPoint.apk"
+        "repository": "Shadow-Protectors/Shadow-Protectors.github.io",
+        "tag": "waypoint-v1.1.0-preview.1",
+        "asset": "WayPoint-v1.1.0-debug.apk"
       }
     },
     {

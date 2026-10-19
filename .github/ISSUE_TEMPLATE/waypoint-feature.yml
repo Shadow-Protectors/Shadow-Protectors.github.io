@@ -1,0 +1,47 @@
+{
+  "name": "WayPoint: request a feature",
+  "description": "Suggest an improvement to WayPoint.",
+  "title": "[WayPoint] ",
+  "labels": [
+    "app:waypoint",
+    "enhancement"
+  ],
+  "body": [
+    {
+      "type": "markdown",
+      "attributes": {
+        "value": "Reports are public. Do not include precise locations, passwords, or personal information."
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "problem",
+      "attributes": {
+        "label": "What problem would this solve?"
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "solution",
+      "attributes": {
+        "label": "Suggested improvement"
+      },
+      "validations": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "alternatives",
+      "attributes": {
+        "label": "Alternatives considered"
+      },
+      "validations": {
+        "required": false
+      }
+    }
+  ]
+}

@@ -38,7 +38,7 @@ if (content) {
   const p = publishedProjects.find(p => p.id === (content.dataset.project || new URLSearchParams(location.search).get('id')));
   if (!p) { document.title = 'Project not found | HMG'; content.innerHTML = '<h1 class="about-main-title">Project not found</h1><p>This project is not available. Visit the WayPoint homepage.</p>'; }
   else {
-    const name = p.name; document.title = name + ' ? Destination travel alarm';
+    const name = p.name; document.title = name + ' - Destination travel alarm';
     document.querySelector('meta[name="description"]')?.setAttribute('content', p.description || p.summary || name);
     if (p.logo) { const icon=document.createElement('link'); icon.rel='icon'; icon.href=safeLink(p.logo); document.head.appendChild(icon); }
     const apk = safeLink(releaseDownload(p) || p.apk); const repo = safeLink(p.repository); const website = safeLink(p.website);
@@ -64,9 +64,9 @@ async function showReleaseCount(p) {
  if(!nodes.length)return;
  if(!validRelease(p)){nodes.forEach(node=>node.hidden=true);return;}
  const label=text=>nodes.forEach(node=>{node.hidden=false;node.textContent=text;});
- label('Checking downloads?');
+ label('Checking downloads...');
  const r=p.release;const key='release-downloads:'+r.repository+':'+r.tag+':'+r.asset;
- const format=count=>new Intl.NumberFormat().format(count)+' APK downloads ? this version';
+ const format=count=>new Intl.NumberFormat().format(count)+' APK downloads - this version';
  try {
   let cached;try{cached=JSON.parse(sessionStorage.getItem(key));}catch{}
   if(cached && Number.isSafeInteger(cached.count) && cached.count>=0 && Date.now()-cached.at>=0 && Date.now()-cached.at<300000){label(format(cached.count));return;}
